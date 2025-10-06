@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Nós Dois</title>
+    <!-- Google Fonts: Montserrat & Dancing Script -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        #slideshow {
+            width: 90vw;
+            max-width: 400px;
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 2vh;
+            margin-bottom: 3vh;
+        }
+        #slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        #slideshow img.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        #carta {
+            width: 85vw;
+            max-width: 500px;
+            min-height: 120px;
+            margin: 0 auto 2vh auto;
+            color: #fff;
+            background: rgba(30, 30, 40, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            padding: 24px 18px 24px 18px;
+            font-size: 1.3em;
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+            text-align: center;
+            position: relative;
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 1ch;
+            animation: blink 1s steps(1) infinite;
+            color: #fff8;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        @media (max-width: 600px) {
+            #slideshow {
+                max-width: 98vw;
+            }
+            #carta {
+                font-size: 1.05em;
+                padding: 16px 6vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Música de fundo opcional -->
+    <audio id="musica" src="Yago Oproprio - Papoulas (Letra) _ Sabonas [LxQ5Rw7afUk].mp3" loop autoplay style="display:none"></audio>
+    <div id="slideshow">
+        <!-- Imagens inseridas via JS -->
+    </div>
+    <div id="carta">
+        <span id="carta-texto"></span>
+    </div>
+    <script>
+        // Personalização fácil
+        // Lista de imagens reais da pasta IMG para o slideshow
+        const imagens = [
+            'IMG_3811.HEIC',
+            'IMG_3941.HEIC',
+            'IMG_4206.HEIC',
+            'IMG_4207.HEIC',
+            'IMG_4621.HEIC',
+            'IMG_4639.HEIC',
+            'IMG_4643.HEIC',
+            'IMG_4687.HEIC',
+            'IMG_4723.HEIC',
+            'IMG_4772.HEIC',
+            'IMG_4831.HEIC',
+            'IMG_4832 (1).HEIC',
+            'IMG_4832.HEIC',
+            'IMG_4834.HEIC',
+            'IMG_4835.HEIC',
+            'IMG_4837.HEIC',
+            'IMG-20250920-WA0012.jpg',
+        ];
+        const intervaloTroca = 2000; // ms
+    const textoCarta = `Oi meu amor, eu não sou tão bom com cartinhas como você, mas queria muito te dizer algumas coisas, esse texto aqui vai ter alguns erros de portugues porque me recuso a tacar isso em alguma IA para corrigir.\n\nEu não sei o que começar escrevendo e nem pensei em o que vou escrever antes de começar a digitar (acho que fica mais sincero assim), mas então, lembra a noite do dia da raposa ? eu tava triste aquele dia porque não tinha ido contigo e ia ser só mais uma noite jogando, mas então, no meio da noite você aparece, igual um pinto molhado toda encolhidinha pra passar a noite comigo (até hoje eu acho que você nem mostrou a identidade em), e você fez minha noite muito feliz, foi uma das noites mais felizes da minha vida, só que eu não esperava que você ia tornar todos os meus dias assim, desde que você entrou na minha vida, todos os meus dias estão mais coloridos, mais alegres e cheio de saudade e ansiedade pra chegar as sonhadas sextas feiras para te ver.\nAmo nossos momentos juntos, quando paramos as 1 da manha pra fazer uma janta que nenhum dos dois nunca fizemos, nossos banhos juntos que eu sempre quero deixar você quentinha embaixo da água e fico me tremendo todo te vendo, quando acordo na madrugada e você dá capotada babando no meu peito. São esses momentos, momentos com voce que me torna uma pessoa muito mais feliz, e eu rezo todos os dias para que possa passar o resto da minha vida com você.\nEu vou parar por aqui porque sou péssimo escrevendo as coisas, e também tô no trabalho e não to afim de chorar aqui. Mas é isso, eu te amo Gabriella Kolling Lessa.\n\nAssinado, Matheus Leite Lessa Kolling`;
+
+        // Slideshow
+        const slideshowDiv = document.getElementById('slideshow');
+        let imgs = [];
+        imagens.forEach((src, i) => {
+            const img = document.createElement('img');
+            img.src = src;
+            if (i === 0) img.classList.add('active');
+            slideshowDiv.appendChild(img);
+            imgs.push(img);
+        });
+        let idx = 0;
+        setInterval(() => {
+            imgs[idx].classList.remove('active');
+            idx = (idx + 1) % imgs.length;
+            imgs[idx].classList.add('active');
+        }, intervaloTroca);
+
+        // Exibir o texto completo da carta imediatamente
+        const cartaTexto = document.getElementById('carta-texto');
+        cartaTexto.innerHTML = textoCarta.replace(/\n/g, '<br>');
+
+        // Tentar autoplay da música ao abrir a página (alguns navegadores exigem interação)
+        window.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('musica');
+            if (audio) {
+                audio.volume = 0.7;
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        // Se bloqueado, tocar ao primeiro clique/touch
+                        const tryPlay = () => {
+                            audio.play();
+                            document.body.removeEventListener('click', tryPlay);
+                            document.body.removeEventListener('touchstart', tryPlay);
+                        };
+                        document.body.addEventListener('click', tryPlay);
+                        document.body.addEventListener('touchstart', tryPlay);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

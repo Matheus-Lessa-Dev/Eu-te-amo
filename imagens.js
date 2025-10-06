@@ -1,0 +1,21 @@
+// Lista de imagens reais da pasta IMG para o slideshow
+const imagens = [
+    'IMG_3811.HEIC',
+    'IMG_3941.HEIC',
+    'IMG_4206.HEIC',
+    'IMG_4207.HEIC',
+    'IMG_4621.HEIC',
+    'IMG_4639.HEIC',
+    'IMG_4643.HEIC',
+    'IMG_4687.HEIC',
+    'IMG_4723.HEIC',
+    'IMG_4772.HEIC',
+    'IMG_4831.HEIC',
+    'IMG_4832 (1).HEIC',
+    'IMG_4832.HEIC',
+    'IMG_4833.HEIC',
+    'IMG_4834.HEIC',
+    'IMG_4835.HEIC',
+    'IMG_4837.HEIC',
+    'IMG-20250920-WA0012.jpg',
+];
